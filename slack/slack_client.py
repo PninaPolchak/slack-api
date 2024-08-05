@@ -16,10 +16,11 @@ def main():
             channel_id = create_channel(client=client, channel_name=Channels.NEW_CHANNEL)
             if channel_id:
                 add_member_to_channel(client=client, channel=channel_id, user_id=Users.USER_TO_ADD)
-                
-    except Value as e:
+
+    except SlackApiError as e:
         error_message = e.response.get('error', 'Unknown error')
         raise SlackApiError(f"Error: {error_message}")
+
 
 def get_users(client: WebClient):
     try:
